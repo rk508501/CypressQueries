@@ -15,3 +15,11 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+
+Cypress.Commands.add('login', (username, password) => {
+    return "Success"
+})
+
+Cypress.Commands.add("logout", ()=>{
+    cy.log("User logged out")
+})
