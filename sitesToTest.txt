@@ -1,3 +1,13 @@
 https://knowindia.india.gov.in/districts/
 
 https://services.vfsglobal.com/one-pager/india/united-states-of-america/passport-services/#new-booklet
+
+Create an HTML page under HTML dir with buttons. 
+Each button should have texts below:
+  - Click me
+  - click me
+  - click Me
+  - CLick ME
+  - clicK mE
+when a button is clicked it should change the shade of the button 
+Add a refresh button at the bottom that will reset all the buttons

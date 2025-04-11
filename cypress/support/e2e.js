@@ -16,6 +16,11 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
+window.testdata = {
+    "username": "admin",
+    "password": "admin"
+}
+
 Cypress.Commands.add('login', (username, password) => {
     return "Success"
 })
