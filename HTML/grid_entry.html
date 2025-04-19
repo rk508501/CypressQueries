@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Grid</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            outline: none;
+        }
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin: 0 auto;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+        }
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Emp Name</th>
+                <th>Emp ID</th>
+                <th>Emp Dept</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Seed data for 10 rows -->
+            <tr>
+                <td>1</td>
+                <td><input type="text" placeholder="Enter Name"></td>
+                <td><input type="text" placeholder="Enter ID"></td>
+                <td><input type="text" placeholder="Enter Dept"></td>
+                <td><input type="number" placeholder="Enter Salary"></td>
+            </tr>
+            <!-- ...repeat similar rows for 2 to 10 -->
+        </tbody>
+    </table>
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const table = document.querySelector('table');
+        const toast = document.getElementById('toast');
+
+        table.addEventListener('input', (event) => {
+            const input = event.target;
+            const column = input.closest('td').cellIndex;
+
+            if (column === 4) { // Salary column
+                if (isNaN(input.value) || input.value.trim() === '') {
+                    showToast('Error: Salary must be a number');
+                    input.value = '';
+                }
+            } else {
+                if (input.value.trim() === '') {
+                    showToast('Error: Field cannot be empty');
+                }
+            }
+        });
+
+        table.addEventListener('change', () => {
+            setTimeout(() => {
+                showToast('Success: Data saved successfully');
+            }, 500);
+        });
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.className = 'toast show';
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

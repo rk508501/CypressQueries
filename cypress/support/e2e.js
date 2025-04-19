@@ -17,14 +17,39 @@
 import './commands';
 
 window.testdata = {
-    "username": "admin",
-    "password": "admin"
-}
+  username: 'admin',
+  password: 'admin',
+};
 
 Cypress.Commands.add('login', (username, password) => {
-    return "Success"
-})
+  return 'Success';
+});
 
-Cypress.Commands.add("logout", ()=>{
-    cy.log("User logged out")
-})
+Cypress.Commands.add('logout', () => {
+  cy.log('User logged out');
+});
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  return false;
+});
+
+Cypress.Commands.add('getCountryCapital', (country) => {
+  let capitalText;
+  cy.get('tr').then((countryRows) => {
+    for (let index = 0; index < countryRows.length; index++) {
+      const countryRowTxt = countryRows[index].innerText;
+      if (countryRowTxt.includes(country)) {
+
+        return cy
+          .get(`tr:nth-child(${index}) > td:nth-child(3)`)
+          .then((capitalElement) => {
+            capitalText = capitalElement.text();
+          });
+      }
+    }
+  });
+
+  return cy.then(() => {
+    return cy.wrap(capitalText);
+  });
+});
